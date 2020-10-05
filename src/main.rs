@@ -1,5 +1,3 @@
-
-
 use std::collections::BTreeMap;
 use std::io::{self, BufRead};
 
@@ -11,21 +9,22 @@ fn main() {
     let mut counts: BTreeMap<String, usize> = BTreeMap::new();
 
     let stdin = io::stdin();
-    for line in stdin.lock().lines() {
+    stdin.lock().lines().for_each(|line| {
         let line = line.unwrap().to_lowercase();
         let matches = word_re.find_iter(&line);
+
         let words = matches.map(|mat| mat.as_str());
 
-        for word in words {
+        words.for_each(|word| {
             *counts.entry(word.into()).or_insert(0) += 1;
-        }
-    }
-    let mut total =0;
-    let mut unique =0;
-    for (key, value) in counts.iter() {
-        println!("{} {}", key, value);
+        });
+    });
+    let mut total = 0;
+    let mut unique = 0;
+    counts.iter().for_each(|(key, value)| {
         total += value;
-        unique += 1 ;
-    }
-    println!("{} words total of {} times.",unique, total);
+        unique += 1;
+        println!(" Word {} shows up {} times.", key, value);
+    });
+    println!(" Total of {} unique words  with a total of {} words.", unique, total);
 }
