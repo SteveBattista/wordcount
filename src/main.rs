@@ -1,10 +1,11 @@
 use std::collections::BTreeMap;
 use std::io::{self, BufRead};
 
+
 use regex::Regex;
 
 fn main() {
-    let word_re = Regex::new(r"[a-z,0-9']+").unwrap();
+    let word_re = Regex::new(r"[a-z0-9']+").unwrap();
 
     let mut counts: BTreeMap<String, usize> = BTreeMap::new();
 
@@ -24,7 +25,7 @@ fn main() {
     counts.iter().for_each(|(key, value)| {
         total += value;
         unique += 1;
-        println!(" Word {} shows up {} times.", key, value);
+        println!(" {} shows up {} times.", key, value);
     });
-    println!(" Total of {} unique words  with a total of {} words.", unique, total);
+    println!("Number of unique words was {} out of a total of {} words.", unique, total);
 }
