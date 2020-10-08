@@ -1,4 +1,4 @@
-FROM rust:1.46 as builder
+FROM rust:latest as builder
 
 RUN USER=root git clone https://github.com/SteveBattista/wordcount.git
 WORKDIR ./wordcount
